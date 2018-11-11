@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menuprincipal">
+        <item>Grupos</item>
+        <item>Usuários</item>
+        <item>Meu Perfil</item>
+        <item>Iniciar Monitoramento</item>
+    </string-array>
+</resources>

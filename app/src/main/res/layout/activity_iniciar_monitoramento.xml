@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="br.edu.utfpr.diadodesafio.activity.IniciarMonitoramentoActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nível de movimento:" />
+
+    <TextView
+        android:id="@+id/tvNivelMovimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.000,00" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tempo:" />
+
+    <TextView
+        android:id="@+id/tvTempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00" />
+
+    <!-- No clicar: Alterar o 'Iniciar o Monitoramento' para 'Parar o Monitoramento' -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Iniciar o Monitoramento"
+        android:onClick="btIniciarMonitoramentoOnClick"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nível de atividade:" />
+
+    <TextView
+        android:id="@+id/tvNivelDeAtividadeDoMonitoramento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.000,00" />
+
+</LinearLayout>
