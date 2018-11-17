@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String mUsername;
     public static final String ANONYMOUS = "anonymous";
-    
+
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mUsername = ANONYMOUS;
-
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         lvPrincipal = (ListView) findViewById(R.id.menuPrincipal);
@@ -52,13 +51,10 @@ public class MainActivity extends AppCompatActivity {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null){
+                if (user != null) {
                     //User is signed in
                     onSignedInInitialize(user.getDisplayName());
-
                 } else {
                     //User is signed out
                     onSignedOutCleanup();
@@ -77,18 +73,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void tratarMenuPrincipal(int i) {
-        if (i == 0){
+        if (i == 0) {
             startActivity(new Intent(this, GruposActivity.class));
-
-        } else if (i == 1){
+        } else if (i == 1) {
             startActivity(new Intent(this, UsuariosActivity.class));
-
-        } else if (i == 2){
+        } else if (i == 2) {
             startActivity(new Intent(this, MeuPerfilActivity.class));
-
-        } else if (i == 3){
+        } else if (i == 3) {
             startActivity(new Intent(this, IniciarMonitoramentoActivity.class));
-
         }
     }
 
@@ -96,16 +88,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Sign in", Toast.LENGTH_SHORT).show();
-            } else if (resultCode == RESULT_CANCELED){
+            } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in Cancelado", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
-
-
     }
 
     @Override
@@ -119,7 +109,15 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
- 
+
+    private void onSignedInInitialize(String displayName) {
+        mUsername = displayName;
+    }
+
+    private void onSignedOutCleanup() {
+        mUsername = ANONYMOUS;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -129,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.sign_out_menu:
                 //sign out
                 AuthUI.getInstance().signOut(this);
@@ -139,12 +137,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void onSignedInInitialize(String displayName) {
-        mUsername = displayName;
-    }
-
-    private void onSignedOutCleanup() {
-        mUsername = ANONYMOUS;
-    }
 
 }
