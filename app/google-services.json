@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "933101332217",
+    "firebase_url": "https://diadodesafio-616a5.firebaseio.com",
+    "project_id": "diadodesafio-616a5",
+    "storage_bucket": "diadodesafio-616a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933101332217:android:561cbdf8fba68168",
+        "android_client_info": {
+          "package_name": "br.edu.utfpr.diadodesafio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933101332217-vmsj4ojogvh2p9bddtk8n09qhqoho823.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.edu.utfpr.diadodesafio",
+            "certificate_hash": "e6f40fa69c2c6e1c0dc24b42e58c14e9d0dd3392"
+          }
+        },
+        {
+          "client_id": "933101332217-ek4p0j3qris6b5nerc35lpa0da450ovb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7HAgdinN6hsXFbRXFZp1J_ElL0voGyrw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933101332217-ek4p0j3qris6b5nerc35lpa0da450ovb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
