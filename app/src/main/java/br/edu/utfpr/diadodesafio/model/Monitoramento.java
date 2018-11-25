@@ -13,7 +13,7 @@ public class Monitoramento implements Serializable {
 
     private Usuario usuario;
 
-    private LocalDate data;
+    private String data;
 
     private Double mediaMonitora;
 
@@ -26,7 +26,7 @@ public class Monitoramento implements Serializable {
         this.id = id;
     }
 
-    public Monitoramento(Long id, String localizacao, Usuario usuario, LocalDate data, Double mediaMonitora) {
+    public Monitoramento(Long id, String localizacao, Usuario usuario, String data, Double mediaMonitora) {
         this.id = id;
         this.localizacao = localizacao;
         this.usuario = usuario;
@@ -58,11 +58,11 @@ public class Monitoramento implements Serializable {
         this.usuario = usuario;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
 

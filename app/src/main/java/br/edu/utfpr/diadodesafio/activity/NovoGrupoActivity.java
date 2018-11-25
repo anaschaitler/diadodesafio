@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import br.edu.utfpr.diadodesafio.R;
-import br.edu.utfpr.diadodesafio.connection.connectionBD;
+import br.edu.utfpr.diadodesafio.connection.ConexaoDB;
 
 public class NovoGrupoActivity extends AppCompatActivity {
 
@@ -22,7 +22,7 @@ public class NovoGrupoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_grupo);
 
-        bd = connectionBD.getConnection(this);
+        bd = ConexaoDB.getConnection(this);
         etNomeGrupo = (EditText) findViewById(R.id.etNomeGrupo);
     }
 

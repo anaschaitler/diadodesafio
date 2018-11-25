@@ -1,6 +1,8 @@
 package br.edu.utfpr.diadodesafio.activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,12 +21,15 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 
 import br.edu.utfpr.diadodesafio.R;
+import br.edu.utfpr.diadodesafio.connection.ConexaoDB;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView lvPrincipal;
 
+    public SQLiteDatabase bd;
     private String mUsername;
+
     public static final String ANONYMOUS = "anonymous";
 
     private FirebaseAuth mFirebaseAuth;
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bd = ConexaoDB.getConnection(this);
 
         mUsername = ANONYMOUS;
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -81,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, MeuPerfilActivity.class));
         } else if (i == 3) {
             startActivity(new Intent(this, IniciarMonitoramentoActivity.class));
+
         }
     }
 
@@ -111,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onSignedInInitialize(String displayName) {
+        ContentValues registro = new ContentValues();
+        registro.put("nome", displayName);
+        bd.insert("usuario", null, registro);
+
         mUsername = displayName;
     }
 
