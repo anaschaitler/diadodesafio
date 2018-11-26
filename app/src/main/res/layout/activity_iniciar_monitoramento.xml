@@ -24,14 +24,15 @@
         android:layout_height="wrap_content"
         android:text="Tempo:" />
 
-    <TextView
-        android:id="@+id/tvTempo"
+    <Chronometer
+        android:id="@+id/chCronometro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:00" />
 
     <!-- No clicar: Alterar o 'Iniciar o Monitoramento' para 'Parar o Monitoramento' -->
     <Button
+        android:id="@+id/btIniciarMonitoramento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Iniciar o Monitoramento"
