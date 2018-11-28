@@ -3,7 +3,7 @@ package br.edu.utfpr.diadodesafio.connection;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-public class ConexaoDB {
+public class DatabaseConnection {
 
     private static SQLiteDatabase BD;
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import br.edu.utfpr.diadodesafio.R;
-import br.edu.utfpr.diadodesafio.connection.ConexaoDB;
+import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 
 public class UsuariosActivity extends AppCompatActivity {
 
@@ -18,7 +18,7 @@ public class UsuariosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuarios);
 
-        bd =  ConexaoDB.getConnection(this);
+        bd =  DatabaseConnection.getConnection(this);
         //lvUsuarios = (ListView) findViewById(R.id.lvUsuarios);
         //AdapterUsuarios adapter = new AdapterUsuarios (this, bd);
         //lvUsuarios.setAdapter(adapter);

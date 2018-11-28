@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion 26
     defaultConfig {
         applicationId "br.edu.utfpr.diadodesafio"
@@ -29,4 +30,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
     implementation 'com.facebook.android:facebook-android-sdk:4.38.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
 }
