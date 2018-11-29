@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 
 import br.edu.utfpr.diadodesafio.R;
-import br.edu.utfpr.diadodesafio.connection.ConexaoDB;
+import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bd = ConexaoDB.getConnection(this);
+        bd = DatabaseConnection.getConnection(this);
 
         mUsername = ANONYMOUS;
         mFirebaseAuth = FirebaseAuth.getInstance();

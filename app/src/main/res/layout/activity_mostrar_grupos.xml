@@ -6,6 +6,6 @@
     android:id="@+id/lvMostrarGrupos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.edu.utfpr.diadodesafio.activity.MostrarGruposActivity">
+    tools:context=".activity.MostrarGruposActivity">
 
 </ListView>

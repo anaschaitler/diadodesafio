@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import br.edu.utfpr.diadodesafio.R;
-import br.edu.utfpr.diadodesafio.connection.ConexaoDB;
+import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 
 public class VizualizarGrupoActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class VizualizarGrupoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vizualizar_grupo);
 
-        bd = ConexaoDB.getConnection(this);
+        bd = DatabaseConnection.getConnection(this);
         this.grupos = bd.query("grupo", null, null, null, null, null, null, null);
 
         tvId = (TextView) findViewById(R.id.tvId);

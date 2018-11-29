@@ -21,20 +21,18 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Date;
 
 import br.edu.utfpr.diadodesafio.R;
-import br.edu.utfpr.diadodesafio.connection.ConexaoDB;
-import br.edu.utfpr.diadodesafio.model.Monitoramento;
+import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 
 public class IniciarMonitoramentoActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
     private TextView tvNivelMovimento;
     private Chronometer chCronometro;
-    private TextView tvNivelDeAtividadeDoMonitoramento;
     private Button btIniciarMonitoramento;
+    private TextView tvNivelDeAtividadeDoMonitoramento;
 
     private Boolean iniciar = false;
     private long segundos = 0;
@@ -59,12 +57,12 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_monitoramento);
 
-        bd = ConexaoDB.getConnection(this);
+        bd = DatabaseConnection.getConnection(this);
 
         tvNivelMovimento = (TextView) findViewById(R.id.tvNivelMovimento);
         chCronometro = (Chronometer) findViewById(R.id.chCronometro);
-        tvNivelDeAtividadeDoMonitoramento = (TextView) findViewById(R.id.tvNivelDeAtividadeDoMonitoramento);
         btIniciarMonitoramento = (Button) findViewById(R.id.btIniciarMonitoramento);
+        tvNivelDeAtividadeDoMonitoramento = (TextView) findViewById(R.id.tvNivelDeAtividadeDoMonitoramento);
 
         mSensorManager=(SensorManager) getSystemService(this.SENSOR_SERVICE);
         sensorAc = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
