@@ -82,31 +82,41 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
                 segundos = (SystemClock.elapsedRealtime() - chCronometro.getBase()) / 1000;
                 if(segundos%60==0){
                     dataFormatada = formataData.format(data);
-                    //gravar atividade no banco (movTotal - movAnt) que foi o movimento realizado em 60 segundos
-                    //gravar latitude e longitudo das variaves (lat, lon)
-                    //gravar data variavel dataFormatada
 
-                    //após a gravação
+					gravar();
+
                     movAnt = movTotal;
-                    //gravar atividade no banco.
-                    ContentValues registro = new ContentValues();
-                    registro.put("localizacao", lat+lon);
-                    registro.put("data", dataFormatada);
-                    registro.put("mediaMonitora", movAnt);
-                    bd.insert("monitoramento", null, registro);
                 }
             }
         });
     }
+	
+	public void gravar(){
+		ContentValues registro = new ContentValues();
+		registro.put("localizacao", String.valueOf(lat)+";"+String.valueOf(lon);
+		registro.put("data", dataFormatada);
+		registro.put("mediaMonitora", movTotal - movAnt);
+		bd.insert("monitoramento", null, registro);
+	}
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+		float x = sensorEvent.values[0];
+        float y = sensorEvent.values[1];
+        float z = sensorEvent.values[2];
+		
+		double calcMov = Math.sqrt((x*x)+(y*y)+(z*z));
 
+        if(click == true){
+            movTotal += calcMov;
+
+            tvNivelMovimento.setText(String.valueOf(calcMov));
+            tvNivelDeAtividadeDoMonitoramento.setText(String.valueOf(movTotal));
+        }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 
     public void btIniciarMonitoramentoOnClick(View view) {
@@ -118,9 +128,9 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
             iniciar = true;
         }else{
             chCronometro.stop();
-            btIniciarMonitoramento.setText("Iniciar o Monitoramento");
-            //Gravar no banco movTotal - movAnt
+			gravar();
             movAnt = 0;
+            btIniciarMonitoramento.setText("Iniciar o Monitoramento");            
             iniciar = false;
         }
     }
@@ -144,15 +154,5 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
     @Override
     public void onProviderDisabled(String s) {
 
-//        if(click==false){
-//            btIniciarMonitoramento.setText("Parar o Monitoramento");
-//            chCronometro.setBase(SystemClock.elapsedRealtime());
-//            chCronometro.start();
-//            click = true;
-//        }else{
-//            btIniciarMonitoramento.setText("Iniciar o Monitoramento");
-//            chCronometro.stop();
-//            click = false;
-//        }
     }
 }
