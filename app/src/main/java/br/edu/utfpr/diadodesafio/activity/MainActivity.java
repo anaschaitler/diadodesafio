@@ -2,6 +2,7 @@ package br.edu.utfpr.diadodesafio.activity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     //User is signed in
-                    onSignedInInitialize(user.getDisplayName());
+                    onSignedInInitialize(user.getUid(), user.getDisplayName());
                 } else {
                     //User is signed out
                     onSignedOutCleanup();
@@ -118,11 +119,16 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
 
-    private void onSignedInInitialize(String displayName) {
+    private void onSignedInInitialize(String id, String displayName) {
         ContentValues registro = new ContentValues();
-        registro.put("nome", displayName);
-        bd.insert("usuario", null, registro);
 
+        Cursor registros =
+                bd.query("usuario", new String[] {"nome"}, "_id=" + id, null,  null, null, null );
+
+        if (registros.getCount() <= 0) {
+                registro.put("_id", id);
+                registro.put("nome", displayName);
+        }
         mUsername = displayName;
     }
 

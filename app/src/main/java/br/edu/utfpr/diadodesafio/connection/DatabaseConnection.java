@@ -12,7 +12,7 @@ public class DatabaseConnection {
         if (BD == null) {
             BD = c.openOrCreateDatabase("BD", Context.MODE_PRIVATE, null);
             BD.execSQL(" CREATE TABLE IF NOT EXISTS grupo( _id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT)");
-            BD.execSQL(" CREATE TABLE IF NOT EXISTS usuario( _id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT )");
+            BD.execSQL(" CREATE TABLE IF NOT EXISTS usuario( _id TEXT PRIMARY KEY, nome TEXT )");
             BD.execSQL(" CREATE TABLE IF NOT EXISTS " +
                     " usuarioGrupo( _id INTEGER PRIMARY KEY AUTOINCREMENT, usuario_id INTEGER, grupo_id INTEGER, " +
                     " FOREIGN KEY(usuario_id) REFERENCES usuario( _id), "+
