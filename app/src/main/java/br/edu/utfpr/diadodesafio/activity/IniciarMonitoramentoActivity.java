@@ -79,19 +79,18 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
         chCronometro.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
-                segundos = (SystemClock.elapsedRealtime() - chCronometro.getBase()) / 1000;
+                segundos = (SystemClock.elapsedRealtime() - chCronometro.getBase()) / 1000);
                 if(segundos%60==0){
-                    dataFormatada = formataData.format(data);
-
-					gravar();
-
+                    gravar();
                     movAnt = movTotal;
                 }
             }
-        });
+        }
     }
 	
 	public void gravar(){
+		dataFormatada = formataData.format(data);
+		
 		ContentValues registro = new ContentValues();
 		registro.put("localizacao", String.valueOf(lat)+";"+String.valueOf(lon);
 		registro.put("data", dataFormatada);
