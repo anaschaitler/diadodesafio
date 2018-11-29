@@ -17,6 +17,7 @@ public class ConexaoDB {
                     " usuarioGrupo( _id INTEGER PRIMARY KEY AUTOINCREMENT, usuario_id INTEGER, grupo_id INTEGER, " +
                     " FOREIGN KEY(usuario_id) REFERENCES usuario( _id), "+
                     " FOREIGN KEY(grupo_id) REFERENCES grupo( _id)) ");
+
             BD.execSQL(" CREATE TABLE IF NOT EXISTS monitoramento( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     " localizacao TEXT, usuario_id INTEGER, data TEXT, mediaMonitora REAL, FOREIGN KEY (usuario_id) REFERENCES usuario( _id) )");
             BD.execSQL(" CREATE TABLE IF NOT EXISTS mediaMonitoramento( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
