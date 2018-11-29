@@ -1,11 +1,15 @@
 package br.edu.utfpr.diadodesafio.activity;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import br.edu.utfpr.diadodesafio.R;
+import br.edu.utfpr.diadodesafio.adapter.AdapterGrupos;
+import br.edu.utfpr.diadodesafio.adapter.AdapterUsuario;
 import br.edu.utfpr.diadodesafio.connection.connectionBD;
 
 public class UsuariosActivity extends AppCompatActivity {
@@ -18,9 +22,11 @@ public class UsuariosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuarios);
 
-        bd =  connectionBD.getConnection(this);
-        //lvUsuarios = (ListView) findViewById(R.id.lvUsuarios);
-        //AdapterUsuarios adapter = new AdapterUsuarios (this, bd);
-        //lvUsuarios.setAdapter(adapter);
+        bd = connectionBD.getConnection(this);
+        lvUsuarios = (ListView) findViewById(R.id.lvUsuarios);
+        AdapterUsuario adapter = new AdapterUsuario(this, bd);
+        lvUsuarios.setAdapter(adapter);
+
+
     }
 }
