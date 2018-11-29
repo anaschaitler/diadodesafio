@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Date;
 
 import br.edu.utfpr.diadodesafio.R;
-import br.edu.utfpr.diadodesafio.connection.ConexaoDB;
+import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 import br.edu.utfpr.diadodesafio.model.Monitoramento;
 
 public class IniciarMonitoramentoActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
@@ -59,7 +59,7 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_monitoramento);
 
-        bd = ConexaoDB.getConnection(this);
+        bd = DatabaseConnection.getConnection(this);
 
         tvNivelMovimento = (TextView) findViewById(R.id.tvNivelMovimento);
         chCronometro = (Chronometer) findViewById(R.id.chCronometro);
@@ -79,12 +79,12 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
         chCronometro.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
-                segundos = (SystemClock.elapsedRealtime() - chCronometro.getBase()) / 1000);
+                segundos = (SystemClock.elapsedRealtime() - chCronometro.getBase()) / 1000;
                 if(segundos%60==0){
                     gravar();
                     movAnt = movTotal;
                 }
-            }
+            });
         }
     }
 	
@@ -92,7 +92,7 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
 		dataFormatada = formataData.format(data);
 		
 		ContentValues registro = new ContentValues();
-		registro.put("localizacao", String.valueOf(lat)+";"+String.valueOf(lon);
+		registro.put("localizacao", String.valueOf(lat)+";"+String.valueOf(lon));
 		registro.put("data", dataFormatada);
 		registro.put("mediaMonitora", movTotal - movAnt);
 		bd.insert("monitoramento", null, registro);
@@ -106,7 +106,7 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
 		
 		double calcMov = Math.sqrt((x*x)+(y*y)+(z*z));
 
-        if(click == true){
+        if(iniciar == true){
             movTotal += calcMov;
 
             tvNivelMovimento.setText(String.valueOf(calcMov));
