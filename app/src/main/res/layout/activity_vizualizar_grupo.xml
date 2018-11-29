@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="br.edu.utfpr.diadodesafio.activity.VizualizarGrupoActivity">
+    tools:context=".activity.VizualizarGrupoActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"

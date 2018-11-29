@@ -1,4 +1,4 @@
-package br.edu.utfpr.diadodesafio.connection;
+package br.edu.utfpr.diadodesafio.service;
 
 import android.util.Log;
 
@@ -14,7 +14,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class ServerConnection {
+public class ServiceGenerator {
 
     //É necessário ajustar o endereco de IP de acordo com o que a sua máquina está utilizando
     private static final String API_BASE_URL = "http://172.30.14.221:8084/diadodesafio/";

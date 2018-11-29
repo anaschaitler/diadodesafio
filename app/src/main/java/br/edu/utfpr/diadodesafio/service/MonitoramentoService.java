@@ -1,4 +1,4 @@
-package br.edu.utfpr.diadodesafio.connection;
+package br.edu.utfpr.diadodesafio.service;
 
 import java.util.List;
 

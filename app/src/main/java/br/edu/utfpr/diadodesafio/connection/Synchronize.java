@@ -6,6 +6,8 @@ import android.util.Log;
 import java.util.List;
 
 import br.edu.utfpr.diadodesafio.model.Grupo;
+import br.edu.utfpr.diadodesafio.service.GrupoService;
+import br.edu.utfpr.diadodesafio.service.ServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,7 +18,7 @@ public class Synchronize {
     public static void synchronizeGrupos(final Context c){
 
         try{
-            GrupoService grupoService = ServerConnection.createService(GrupoService.class);
+            GrupoService grupoService = ServiceGenerator.createService(GrupoService.class);
             Call<List<Grupo>> call = grupoService.getAll();
             call.enqueue(new Callback<List<Grupo>>() {
                 @Override
