@@ -13,16 +13,16 @@ import retrofit2.http.Path;
 
 public interface MediaMonitoramentoService {
 
-    @GET("mediamonitoramento/")
+    @GET("mediamonitoramento/listjson")
     Call<List<MediaMonitoramento>> getAll();
 
     @GET("mediamonitoramento/{id}")
     Call<MediaMonitoramento> getOne(@Path("id") Long id);
 
-    @POST("mediamonitoramento/")
+    @POST("mediamonitoramento/savejson")
     Call<Void> insert(@Body MediaMonitoramento mediaMonitoramento);
 
-    @PUT("mediamonitoramento/")
+    @PUT("mediamonitoramento/editjson")
     Call<Void> update(@Body MediaMonitoramento mediaMonitoramento);
 
     @DELETE("mediamonitoramento/{id}")

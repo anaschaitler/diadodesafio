@@ -44,4 +44,9 @@ public class Grupo implements Serializable {
     public List<Usuario> getUsuarios() { return usuarios; }
 
     public void setUsuarios(List<Usuario> usuarios) { this.usuarios = usuarios; }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.edu.utfpr.diadodesafio.CadastroGrupoActivity">
+
+    <EditText
+        android:id="@+id/edtId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="text"
+        android:hint="Código"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="63dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/btnSalvar"
+        android:layout_marginTop="36dp" />
+
+    <EditText
+        android:id="@+id/edtDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Descrição"
+        tools:layout_editor_absoluteY="123dp"
+        tools:layout_editor_absoluteX="26dp"
+        android:layout_below="@+id/edtId"
+        android:layout_alignStart="@+id/edtId"
+        android:layout_marginTop="41dp" />
+
+    <Button
+        android:id="@+id/btnSalvar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salvar"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="202dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="125dp"
+        android:layout_below="@+id/edtDescricao"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btnExcluir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Excluir"
+        android:visibility="invisible"
+        android:layout_alignBaseline="@+id/btnSalvar"
+        android:layout_alignBottom="@+id/btnSalvar"
+        android:layout_alignStart="@+id/edtDescricao" />
+</RelativeLayout>

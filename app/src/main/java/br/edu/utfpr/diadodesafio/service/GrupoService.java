@@ -13,16 +13,16 @@ import retrofit2.http.Path;
 
 public interface GrupoService {
 
-    @GET("grupo/")
+    @GET("grupo/listjson")
     Call<List<Grupo>> getAll();
 
     @GET("grupo/{id}")
     Call<Grupo> getOne(@Path("id") Long id);
 
-    @POST("grupo/")
+    @POST("grupo/savejson")
     Call<Void> insert(@Body Grupo grupo);
 
-    @PUT("grupo/")
+    @PUT("grupo/editjson")
     Call<Void> update(@Body Grupo grupo);
 
     @DELETE("grupo/{id}")
