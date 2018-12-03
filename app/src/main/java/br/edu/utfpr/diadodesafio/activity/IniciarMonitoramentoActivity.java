@@ -92,7 +92,7 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
             alerta.show();
         }
 
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 0, this);
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, this);
 
         ActivityCompat.requestPermissions( this,
                 new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1 );
