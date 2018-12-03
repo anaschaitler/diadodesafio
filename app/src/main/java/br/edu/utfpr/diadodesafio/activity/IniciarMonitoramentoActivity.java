@@ -2,6 +2,16 @@ package br.edu.utfpr.diadodesafio.activity;
 
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
+import android.content.Context;
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
+import android.provider.Settings;
+import android.content.pm.PackageManager;
+
 import android.os.SystemClock;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,7 +37,6 @@ import java.util.Date;
 
 import br.edu.utfpr.diadodesafio.R;
 import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
-import br.edu.utfpr.diadodesafio.model.Monitoramento;
 
 public class IniciarMonitoramentoActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
@@ -58,6 +67,35 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_monitoramento);
+		
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        if ( ! lm.isProviderEnabled( LocationManager.NETWORK_PROVIDER ) ) {
+
+            AlertDialog.Builder alerta = new AlertDialog.Builder( this );
+            alerta.setTitle( "Atenção" );
+            alerta.setMessage( "GPS não habilitado. Deseja Habilitar??" );
+            alerta.setCancelable( false );
+            alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent i = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS );
+                    startActivity( i );
+                }
+            } );
+            alerta.setNegativeButton( "Cancelar", null );
+            alerta.show();
+        }
+
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 0, this);
+
+        ActivityCompat.requestPermissions( this,
+                new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1 );
 
         bd = DatabaseConnection.getConnection(this);
 
