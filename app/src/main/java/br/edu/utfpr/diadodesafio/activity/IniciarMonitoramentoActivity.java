@@ -2,6 +2,16 @@ package br.edu.utfpr.diadodesafio.activity;
 
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
+import android.content.Context;
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
+import android.provider.Settings;
+import android.content.pm.PackageManager;
+
 import android.os.SystemClock;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -56,6 +66,35 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_monitoramento);
+		
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        if ( ! lm.isProviderEnabled( LocationManager.NETWORK_PROVIDER ) ) {
+
+            AlertDialog.Builder alerta = new AlertDialog.Builder( this );
+            alerta.setTitle( "Atenção" );
+            alerta.setMessage( "GPS não habilitado. Deseja Habilitar??" );
+            alerta.setCancelable( false );
+            alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent i = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS );
+                    startActivity( i );
+                }
+            } );
+            alerta.setNegativeButton( "Cancelar", null );
+            alerta.show();
+        }
+
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, this);
+
+        ActivityCompat.requestPermissions( this,
+                new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1 );
 
         bd = DatabaseConnection.getConnection(this);
 
@@ -79,32 +118,41 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
             public void onChronometerTick(Chronometer chronometer) {
                 segundos = (SystemClock.elapsedRealtime() - chCronometro.getBase()) / 1000;
                 if(segundos%60==0){
-                    dataFormatada = formataData.format(data);
-                    //gravar atividade no banco (movTotal - movAnt) que foi o movimento realizado em 60 segundos
-                    //gravar latitude e longitudo das variaves (lat, lon)
-                    //gravar data variavel dataFormatada
-
-                    //após a gravação
+                    gravar();
                     movAnt = movTotal;
-                    //gravar atividade no banco.
-                    ContentValues registro = new ContentValues();
-                    registro.put("localizacao", lat+lon);
-                    registro.put("data", dataFormatada);
-                    registro.put("mediaMonitora", movAnt);
-                    bd.insert("monitoramento", null, registro);
                 }
-            }
-        });
+            });
+        }
     }
+	
+	public void gravar(){
+		dataFormatada = formataData.format(data);
+		
+		ContentValues registro = new ContentValues();
+		registro.put("localizacao", String.valueOf(lat)+";"+String.valueOf(lon));
+		registro.put("data", dataFormatada);
+		registro.put("mediaMonitora", movTotal - movAnt);
+		bd.insert("monitoramento", null, registro);
+	}
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+		float x = sensorEvent.values[0];
+        float y = sensorEvent.values[1];
+        float z = sensorEvent.values[2];
+		
+		double calcMov = Math.sqrt((x*x)+(y*y)+(z*z));
 
+        if(iniciar == true){
+            movTotal += calcMov;
+
+            tvNivelMovimento.setText(String.valueOf(calcMov));
+            tvNivelDeAtividadeDoMonitoramento.setText(String.valueOf(movTotal));
+        }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 
     public void btIniciarMonitoramentoOnClick(View view) {
@@ -116,9 +164,9 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
             iniciar = true;
         }else{
             chCronometro.stop();
-            btIniciarMonitoramento.setText("Iniciar o Monitoramento");
-            //Gravar no banco movTotal - movAnt
+			gravar();
             movAnt = 0;
+            btIniciarMonitoramento.setText("Iniciar o Monitoramento");            
             iniciar = false;
         }
     }
@@ -142,15 +190,5 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
     @Override
     public void onProviderDisabled(String s) {
 
-//        if(click==false){
-//            btIniciarMonitoramento.setText("Parar o Monitoramento");
-//            chCronometro.setBase(SystemClock.elapsedRealtime());
-//            chCronometro.start();
-//            click = true;
-//        }else{
-//            btIniciarMonitoramento.setText("Iniciar o Monitoramento");
-//            chCronometro.stop();
-//            click = false;
-//        }
     }
 }
