@@ -16,8 +16,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    //É necessário ajustar o endereco de IP de acordo com o que a sua máquina está utilizando
-    private static final String API_BASE_URL = "http://172.30.14.221:8084/diadodesafio/";
+//É necessário ajustar o endereco de IP de acordo com o que a sua máquina está utilizando. Por exemplo,
+//    private static final String API_BASE_URL = "http://172.30.3.71:8084/diadodesafio/";
+    private static final String API_BASE_URL = "http://192.168.100.5:8084/diadodesafio/";
 
     private static Retrofit retrofit ;
     private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(API_BASE_URL).addConverterFactory(GsonConverterFactory.create());
@@ -25,39 +26,5 @@ public class ServiceGenerator {
     public static <S> S createService(Class<S> serviceClass){
         retrofit = builder.build();
         return retrofit.create(serviceClass);
-    }
-
-    public static String obterJson (String url) {
-
-        String json = "";
-
-        try {
-
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpGet request = new HttpGet(url);
-
-            InputStream in = httpclient.execute(request).getEntity().getContent();
-
-            BufferedReader br = null;
-            StringBuilder sb = new StringBuilder();
-
-            br = new BufferedReader(new InputStreamReader(in));
-
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                line = br.readLine();
-
-            }
-
-            json = sb.toString();
-
-        } catch (Exception e){
-            e.printStackTrace();
-            Log.e("ERRO", "Falha ao acessar Web Service. Verifique seu endereço IP!", e);
-        }
-
-        return json;
     }
 }

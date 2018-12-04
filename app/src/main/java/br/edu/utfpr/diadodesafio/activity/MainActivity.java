@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
+import br.edu.utfpr.diadodesafio.ListaGrupoActivity;
 import br.edu.utfpr.diadodesafio.R;
 import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 
@@ -82,7 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void tratarMenuPrincipal(int i) {
         if (i == 0) {
-            startActivity(new Intent(this, GruposActivity.class));
+            //startActivity(new Intent(this, GruposActivity.class));
+            Intent intent = new Intent(this, ListaGrupoActivity.class);
+            startActivity(intent);
         } else if (i == 1) {
             startActivity(new Intent(this, UsuariosActivity.class));
         } else if (i == 2) {

@@ -70,4 +70,9 @@ public class MediaMonitoramento implements Serializable {
     public void setMonitoramento(List<Monitoramento> monitoramento) {
         this.monitoramento = monitoramento;
     }
+
+    @Override
+    public String toString() {
+        return getUsuario().getNome() + " - " + getData() + " - " + getMediaGeral() + " - " + getMonitoramento();
+    }
 }

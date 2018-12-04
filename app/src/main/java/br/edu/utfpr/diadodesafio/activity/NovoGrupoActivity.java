@@ -1,6 +1,7 @@
 package br.edu.utfpr.diadodesafio.activity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,10 @@ import android.widget.Toast;
 
 import br.edu.utfpr.diadodesafio.R;
 import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
+import br.edu.utfpr.diadodesafio.model.Grupo;
+import br.edu.utfpr.diadodesafio.service.GrupoService;
+import br.edu.utfpr.diadodesafio.service.ServiceGenerator;
+import retrofit2.Call;
 
 public class NovoGrupoActivity extends AppCompatActivity {
 

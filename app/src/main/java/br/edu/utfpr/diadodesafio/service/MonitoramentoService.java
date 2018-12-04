@@ -13,16 +13,16 @@ import retrofit2.http.Path;
 
 public interface MonitoramentoService {
 
-    @GET("monitoramento/")
+    @GET("monitoramento/listjson")
     Call<List<Monitoramento>> getAll();
 
     @GET("monitoramento/{id}")
     Call<Monitoramento> getOne(@Path("id") Long id);
 
-    @POST("monitoramento/")
+    @POST("monitoramento/savejson")
     Call<Void> insert(@Body Monitoramento monitoramento);
 
-    @PUT("monitoramento/")
+    @PUT("monitoramento/editjson")
     Call<Void> update(@Body Monitoramento monitoramento);
 
     @DELETE("monitoramento/{id}")
