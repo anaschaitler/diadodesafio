@@ -11,7 +11,7 @@ import br.edu.utfpr.diadodesafio.adapter.AdapterGrupos;
 
 public class MostrarGruposActivity extends AppCompatActivity {
 
-    private SQLiteDatabase bd;
+    private static SQLiteDatabase bd;
     private ListView lvMostrarGrupos;
 
     @Override
@@ -21,7 +21,17 @@ public class MostrarGruposActivity extends AppCompatActivity {
 
         bd =  DatabaseConnection.getConnection(this);
         lvMostrarGrupos = (ListView) findViewById(R.id.lvMostrarGrupos);
-        AdapterGrupos adapter = new AdapterGrupos(this, bd);
-        lvMostrarGrupos.setAdapter(adapter);
+        AdapterGrupos adapterGrupos = new AdapterGrupos(this, bd,
+                "SELECT grupo._id, grupo.nome, sum(monitoramento.mediamonitora) / count(usuario._id) as media " +
+                        "FROM grupo " +
+                        "LEFT JOIN usuarioGrupo " +
+                        " ON usuarioGrupo.grupo_id = grupo._id " +
+                        "LEFT JOIN usuario " +
+                        " ON usuario._id = usuarioGrupo.usuario_id " +
+                        "LEFT JOIN monitoramento " +
+                        " ON monitoramento.usuario_id = usuario._id " +
+                        "GROUP BY grupo._id, grupo.nome " +
+                        "ORDER BY media ");
+        lvMostrarGrupos.setAdapter(adapterGrupos);
     }
 }

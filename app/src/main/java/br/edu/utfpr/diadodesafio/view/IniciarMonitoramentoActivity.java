@@ -122,8 +122,8 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
                     gravar();
                     movAnt = movTotal;
                 }
-            });
-        }
+            }
+        });
     }
 	
 	public void gravar(){

@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import br.edu.utfpr.diadodesafio.R;
-import br.edu.utfpr.diadodesafio.connection.connectionBD;
+import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 
 public class MeuPerfilActivity extends AppCompatActivity {
 
@@ -27,7 +27,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meu_perfil);
 
-        bd = connectionBD.getConnection(this);
+        bd = DatabaseConnection.getConnection(this);
         this.usuario = bd.query("grupo", null, null, null, null, null, null, null);
 
         tvId = (TextView) findViewById(R.id.tvId);
@@ -48,5 +48,5 @@ public class MeuPerfilActivity extends AppCompatActivity {
 
     }
 
-    }
+}
 

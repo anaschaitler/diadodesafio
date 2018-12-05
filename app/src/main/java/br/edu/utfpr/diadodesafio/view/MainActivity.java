@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         }else if (i == 4) {
             startActivity(new Intent(this, MostrarGruposActivity.class));
-
         }
     }
 
@@ -124,16 +123,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onSignedInInitialize(String id, String displayName) {
-        ContentValues registro = new ContentValues();
+        /*ContentValues registro = new ContentValues();
 
         Cursor registros =
-                bd.query("usuario", new String[] {"nome"}, "_id=" + id, null,  null, null, null );
+                bd.query("usuario", new String[] {"nome"},
+                            "_id=" + id, null,  null, null, null );
 
         if (registros.getCount() <= 0) {
                 registro.put("_id", id);
                 registro.put("nome", displayName);
         }
-        mUsername = displayName;
+        mUsername = displayName;*/
     }
 
     private void onSignedOutCleanup() {
