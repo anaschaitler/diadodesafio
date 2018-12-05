@@ -2,10 +2,12 @@ package br.edu.utfpr.diadodesafio.activity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -122,6 +124,15 @@ public class MainActivity extends AppCompatActivity {
         ContentValues registro = new ContentValues();
         registro.put("nome", displayName);
         bd.insert("usuario", null, registro);
+
+        Cursor registros = bd.query("usuario", new String[] {"_id,nome"}, null, null, null, null, null);
+
+        if(registros.moveToNext()){
+            String nome = ("TESTANDO AQUI" + registros.getString(registros.getColumnIndex("_id"))
+             + registros.getString(registros.getColumnIndex("nome")));
+
+            Log.i("1", nome);
+        }
 
         mUsername = displayName;
     }
