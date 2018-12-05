@@ -39,7 +39,7 @@ public class AdapterGrupos extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         grupos.moveToPosition(i);
-        int id = grupos.getInt(grupos.getColumnIndex("id"));
+        int id = grupos.getInt(grupos.getColumnIndex("_id"));
         return id;
     }
 
@@ -54,7 +54,7 @@ public class AdapterGrupos extends BaseAdapter {
         grupos.moveToPosition(i);
 
         final String id = String.valueOf(grupos.getInt(grupos.getColumnIndex("_id")));
-        String nomeGrupo = grupos.getString(grupos.getColumnIndex("nomeGrupo"));
+        String nomeGrupo = grupos.getString(grupos.getColumnIndex("nome"));
 
         tvId.setText(id);
         tvNomeGrupo.setText(nomeGrupo);

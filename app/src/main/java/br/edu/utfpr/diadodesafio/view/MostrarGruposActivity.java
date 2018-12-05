@@ -1,4 +1,4 @@
-package br.edu.utfpr.diadodesafio.activity;
+package br.edu.utfpr.diadodesafio.view;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -7,20 +7,21 @@ import android.widget.ListView;
 
 import br.edu.utfpr.diadodesafio.R;
 import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
+import br.edu.utfpr.diadodesafio.adapter.AdapterGrupos;
 
-public class UsuariosActivity extends AppCompatActivity {
+public class MostrarGruposActivity extends AppCompatActivity {
 
     private SQLiteDatabase bd;
-    private ListView lvUsuarios;
+    private ListView lvMostrarGrupos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usuarios);
+        setContentView(R.layout.activity_mostrar_grupos);
 
         bd =  DatabaseConnection.getConnection(this);
-        //lvUsuarios = (ListView) findViewById(R.id.lvUsuarios);
-        //AdapterUsuarios adapter = new AdapterUsuarios (this, bd);
-        //lvUsuarios.setAdapter(adapter);
+        lvMostrarGrupos = (ListView) findViewById(R.id.lvMostrarGrupos);
+        AdapterGrupos adapter = new AdapterGrupos(this, bd);
+        lvMostrarGrupos.setAdapter(adapter);
     }
 }

@@ -1,4 +1,4 @@
-package br.edu.utfpr.diadodesafio.util;
+package br.edu.utfpr.diadodesafio.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

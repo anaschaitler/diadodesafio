@@ -1,6 +1,9 @@
-package br.edu.utfpr.diadodesafio;
+package br.edu.utfpr.diadodesafio.view;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +18,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.edu.utfpr.diadodesafio.R;
+import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 import br.edu.utfpr.diadodesafio.model.Grupo;
 import br.edu.utfpr.diadodesafio.service.GrupoService;
 import br.edu.utfpr.diadodesafio.service.ServiceGenerator;
@@ -22,6 +27,7 @@ import retrofit2.Call;
 
 public class ListaGrupoActivity extends AppCompatActivity {
 
+    public SQLiteDatabase bd;
     private ListView lista;
 
     @Override
@@ -72,15 +78,32 @@ public class ListaGrupoActivity extends AppCompatActivity {
         try{
             List<Grupo> grupos = call.execute().body();
             if(grupos != null){
-                ArrayAdapter<Grupo> adapter =
-                        new ArrayAdapter<>(this,
-                                android.R.layout.simple_list_item_1,
-                                grupos);
+                ArrayAdapter<Grupo> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, grupos);
                 lista.setAdapter(adapter);
+                persistGrupos(this, grupos);
             }else{
                 Toast.makeText(this, "Nenhum registro encontrado!", Toast.LENGTH_SHORT).show();
             }
         }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void persistGrupos(Context c, List<Grupo> grupos) {
+        bd = DatabaseConnection.getConnection(c);
+        try {
+
+            for (Grupo grupo : grupos) {
+
+                ContentValues grupoBD = new ContentValues();
+                grupoBD.put("_id", grupo.getId());
+                grupoBD.put("nome", grupo.getNome());
+
+                bd.insert("grupo", null, grupoBD);
+                Log.i("GRUPO", grupoBD.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

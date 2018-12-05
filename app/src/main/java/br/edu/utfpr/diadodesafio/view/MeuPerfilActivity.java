@@ -1,4 +1,4 @@
-package br.edu.utfpr.diadodesafio.activity;
+package br.edu.utfpr.diadodesafio.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

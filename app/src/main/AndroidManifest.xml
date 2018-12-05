@@ -9,23 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.GruposActivity" />
-        <activity android:name=".activity.UsuariosActivity" />
-        <activity android:name=".activity.IniciarMonitoramentoActivity" />
-        <activity android:name=".activity.MeuPerfilActivity" />
-        <activity android:name=".activity.NovoGrupoActivity" />
-        <activity android:name=".activity.MostrarGruposActivity" />
-        <activity android:name=".activity.VizualizarGrupoActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".ListaGrupoActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CadastroGrupoActivity"></activity>
+        <activity android:name=".view.UsuariosActivity" />
+        <activity android:name=".view.IniciarMonitoramentoActivity" />
+        <activity android:name=".view.MeuPerfilActivity" />
+        <activity android:name=".view.MostrarGruposActivity" />
+        <activity android:name=".view.VizualizarGrupoActivity" />
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.ListaGrupoActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".view.CadastroGrupoActivity"></activity>
     </application>
 
 </manifest>
