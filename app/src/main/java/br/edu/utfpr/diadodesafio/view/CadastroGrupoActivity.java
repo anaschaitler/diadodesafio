@@ -1,6 +1,8 @@
-package br.edu.utfpr.diadodesafio;
+package br.edu.utfpr.diadodesafio.view;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,17 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
+import br.edu.utfpr.diadodesafio.R;
+import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 import br.edu.utfpr.diadodesafio.model.Grupo;
 import br.edu.utfpr.diadodesafio.service.GrupoService;
 import br.edu.utfpr.diadodesafio.service.ServiceGenerator;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CadastroGrupoActivity extends AppCompatActivity {
 
+    public SQLiteDatabase bd;
     private TextView txtId;
     private TextView txtDescricao;
 
@@ -28,6 +29,8 @@ public class CadastroGrupoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_grupo);
+
+        bd = DatabaseConnection.getConnection(this);
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -68,11 +71,13 @@ public class CadastroGrupoActivity extends AppCompatActivity {
             GrupoService grupoService = ServiceGenerator.createService(GrupoService.class);
             Call<Void> call = grupoService.delete(codigo);
             call.execute().body();
-            Toast.makeText(this, "Registro removido com sucesso!", Toast.LENGTH_SHORT);
+            bd.delete("grupo", "_id=?", new String[] {codigo.toString()});
+            //Toast.makeText(this, "Registro removido com sucesso!", Toast.LENGTH_SHORT);
             abrirListaGrupo();
 
         }catch(Exception ex){
-            Toast.makeText(this, "Erro ao remover registro!", Toast.LENGTH_SHORT);
+            ex.printStackTrace();
+            //Toast.makeText(this, "Erro ao remover registro!", Toast.LENGTH_SHORT);
         }
 
     }
@@ -92,12 +97,15 @@ public class CadastroGrupoActivity extends AppCompatActivity {
             call1 = grupoService.update(grupo);
             call1.execute().body();
 
+            ContentValues grupoBD =  new ContentValues();
+            grupoBD.put("_id", grupo.getId());
+            grupoBD.put("nome", grupo.getNome());
+            bd.update("grupo", grupoBD, "_id= ?", new String[] {codigo.toString()});
+
         }catch (Exception ex){
-
-            Toast.makeText(this, "Erro ao editar registro!", Toast.LENGTH_SHORT);
-
+            ex.printStackTrace();
+            //Toast.makeText(this, "Erro ao editar registro!", Toast.LENGTH_SHORT);
         }
-
     }
 
     public void gravarDados(){
@@ -126,8 +134,8 @@ public class CadastroGrupoActivity extends AppCompatActivity {
             abrirListaGrupo();
 
         }catch (Exception ex){
-
-            Toast.makeText(this, "Erro ao editar registro!", Toast.LENGTH_SHORT);
+            ex.printStackTrace();
+            //Toast.makeText(this, "Erro ao editar registro!", Toast.LENGTH_SHORT);
         }
 
     }

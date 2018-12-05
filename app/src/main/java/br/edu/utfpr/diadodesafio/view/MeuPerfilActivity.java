@@ -1,4 +1,4 @@
-package br.edu.utfpr.diadodesafio.activity;
+package br.edu.utfpr.diadodesafio.view;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

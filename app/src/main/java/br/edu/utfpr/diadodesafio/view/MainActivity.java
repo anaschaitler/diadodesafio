@@ -1,4 +1,4 @@
-package br.edu.utfpr.diadodesafio.activity;
+package br.edu.utfpr.diadodesafio.view;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
-import br.edu.utfpr.diadodesafio.ListaGrupoActivity;
 import br.edu.utfpr.diadodesafio.R;
 import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
 
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void tratarMenuPrincipal(int i) {
         if (i == 0) {
-            //startActivity(new Intent(this, GruposActivity.class));
             Intent intent = new Intent(this, ListaGrupoActivity.class);
             startActivity(intent);
         } else if (i == 1) {
@@ -92,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, MeuPerfilActivity.class));
         } else if (i == 3) {
             startActivity(new Intent(this, IniciarMonitoramentoActivity.class));
+
+        }else if (i == 4) {
+            startActivity(new Intent(this, MostrarGruposActivity.class));
 
         }
     }

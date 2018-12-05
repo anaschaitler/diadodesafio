@@ -1,4 +1,4 @@
-package br.edu.utfpr.diadodesafio.activity;
+package br.edu.utfpr.diadodesafio.view;
 
 import android.location.Location;
 import android.location.LocationListener;
@@ -23,6 +23,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -31,14 +32,11 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Date;
 
 import br.edu.utfpr.diadodesafio.R;
 import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
-
-import br.edu.utfpr.diadodesafio.model.Monitoramento;
 
 public class IniciarMonitoramentoActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 

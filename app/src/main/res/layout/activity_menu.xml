@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/menuPrincipal"
     android:entries="@array/menuprincipal"
-    tools:context=".activity.MainActivity">
+    tools:context=".view.MainActivity">
 
 
 
