@@ -137,7 +137,6 @@ public class CadastroGrupoActivity extends AppCompatActivity {
             ex.printStackTrace();
             //Toast.makeText(this, "Erro ao editar registro!", Toast.LENGTH_SHORT);
         }
-
     }
 
     public void abrirListaGrupo(){
