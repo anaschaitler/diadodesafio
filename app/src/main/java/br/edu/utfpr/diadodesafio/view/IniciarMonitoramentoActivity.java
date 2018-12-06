@@ -133,6 +133,7 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
                 segundos = (SystemClock.elapsedRealtime() - chCronometro.getBase()) / 1000;
                 if(segundos%60==0){
                     gravar();
+                    gravarDados();
                     movAnt = movTotal;
                 }
             }
@@ -179,6 +180,7 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
         }else{
             chCronometro.stop();
 			gravar();
+            gravarDados();
             movAnt = 0;
             btIniciarMonitoramento.setText("Iniciar o Monitoramento");            
             iniciar = false;
