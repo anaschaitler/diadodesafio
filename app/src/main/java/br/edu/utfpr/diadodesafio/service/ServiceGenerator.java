@@ -17,8 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
 //É necessário ajustar o endereco de IP de acordo com o que a sua máquina está utilizando. Por exemplo,
-//    private static final String API_BASE_URL = "http://172.30.3.71:8084/diadodesafio/";
-    private static final String API_BASE_URL = "http://192.168.100.5:8084/diadodesafio/";
+    private static final String API_BASE_URL = "http://172.30.9.71:8084/diadodesafio/";
+//    private static final String API_BASE_URL = "http://192.168.100.5:8084/diadodesafio/";
 
     private static Retrofit retrofit ;
     private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(API_BASE_URL).addConverterFactory(GsonConverterFactory.create());
