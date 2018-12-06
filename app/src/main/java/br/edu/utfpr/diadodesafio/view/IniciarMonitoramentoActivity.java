@@ -37,9 +37,15 @@ import java.util.Date;
 
 import br.edu.utfpr.diadodesafio.R;
 import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
+import br.edu.utfpr.diadodesafio.model.Monitoramento;
+import br.edu.utfpr.diadodesafio.model.Usuario;
+import br.edu.utfpr.diadodesafio.service.MonitoramentoService;
+import br.edu.utfpr.diadodesafio.service.ServiceGenerator;
+import retrofit2.Call;
 
 public class IniciarMonitoramentoActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
+    private TextView txtId;
     private TextView tvNivelMovimento;
     private Chronometer chCronometro;
     private TextView tvNivelDeAtividadeDoMonitoramento;
@@ -99,6 +105,7 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
 
         bd = DatabaseConnection.getConnection(this);
 
+        txtId = (TextView) findViewById(R.id.txtId);
         tvNivelMovimento = (TextView) findViewById(R.id.tvNivelMovimento);
         chCronometro = (Chronometer) findViewById(R.id.chCronometro);
         tvNivelDeAtividadeDoMonitoramento = (TextView) findViewById(R.id.tvNivelDeAtividadeDoMonitoramento);
@@ -191,5 +198,45 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
     @Override
     public void onProviderDisabled(String s) {
 
+    }
+
+    public void gravarDados(){
+
+        try {
+
+            if (iniciar == true){
+                final Monitoramento monitoramento  = new Monitoramento();
+
+                if (txtId.getText().toString() != "" &&
+                        !txtId.getText().toString().isEmpty()) {
+                    monitoramento.setId(Long.parseLong(txtId.getText().toString()));
+                }
+
+                monitoramento.setLocalizacao(String.valueOf(lat)+";"+String.valueOf(lon));
+                Usuario usuario = new Usuario(1L, "Admin", "admin@admin", "123");
+                monitoramento.setUsuario(usuario);
+                monitoramento.setData(dataFormatada);
+                monitoramento.setMediaMonitora(Double.parseDouble(String.valueOf(movTotal)) - Double.parseDouble(String.valueOf(movAnt)));
+
+                final MonitoramentoService monitoramentoService = ServiceGenerator.createService(MonitoramentoService.class);
+
+                Call<Void> call;
+
+                if(monitoramento.getId() == null){
+                    call = monitoramentoService.insert(monitoramento);
+
+                }else{
+                    call = monitoramentoService.update(monitoramento);
+                }
+                call.execute().body();
+                //Toast.makeText(this, "Registro salvo com sucesso!", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.i("INICIAR == FALSE", "Não enviou ao servidor");
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+            //Toast.makeText(this, "Erro ao editar registro!", Toast.LENGTH_SHORT);
+        }
     }
 }
