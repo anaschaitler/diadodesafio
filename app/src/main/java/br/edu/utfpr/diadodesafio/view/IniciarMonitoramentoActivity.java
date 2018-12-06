@@ -7,6 +7,7 @@ import android.content.Context;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.provider.Settings;
@@ -104,6 +105,11 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
                 new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1 );
 
         bd = DatabaseConnection.getConnection(this);
+
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         txtId = (TextView) findViewById(R.id.txtId);
         tvNivelMovimento = (TextView) findViewById(R.id.tvNivelMovimento);
