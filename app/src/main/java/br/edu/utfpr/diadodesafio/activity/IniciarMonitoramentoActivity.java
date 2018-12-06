@@ -94,26 +94,27 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
 
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, this);
 
-        ActivityCompat.requestPermissions( this,
-                new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1 );
+        ActivityCompat.requestPermissions( this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1 );
 
+		
         bd = DatabaseConnection.getConnection(this);
-
+		
         tvNivelMovimento = (TextView) findViewById(R.id.tvNivelMovimento);
         chCronometro = (Chronometer) findViewById(R.id.chCronometro);
         tvNivelDeAtividadeDoMonitoramento = (TextView) findViewById(R.id.tvNivelDeAtividadeDoMonitoramento);
         btIniciarMonitoramento = (Button) findViewById(R.id.btIniciarMonitoramento);
-
+		
         mSensorManager=(SensorManager) getSystemService(this.SENSOR_SERVICE);
         sensorAc = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, sensorAc, SensorManager.SENSOR_DELAY_UI);
-
+	
         iniciar = false;
         segundos = 0;
         movTotal = 0;
         data = new Date();
         formataData = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
+		
         chCronometro.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
@@ -130,6 +131,7 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
 		dataFormatada = formataData.format(data);
 		
 		ContentValues registro = new ContentValues();
+		registro.put("usuario", FirebaseAuth.getInstance.getCurrentUser().getUid());
 		registro.put("localizacao", String.valueOf(lat)+";"+String.valueOf(lon));
 		registro.put("data", dataFormatada);
 		registro.put("mediaMonitora", movTotal - movAnt);
