@@ -58,6 +58,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
 //          tvNivelDeAtividadeMeuPerfil.setText(String.valueOf(MediaMonitoramento.getDouble(MediaMonitoramento.getColumnIndex("mediaGeral"))));
 
         }
+    }
 
 }
 

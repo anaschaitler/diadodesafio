@@ -26,15 +26,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Date;
+import java.util.List;
 
 import br.edu.utfpr.diadodesafio.R;
 import br.edu.utfpr.diadodesafio.connection.DatabaseConnection;
@@ -133,7 +136,9 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
                 segundos = (SystemClock.elapsedRealtime() - chCronometro.getBase()) / 1000;
                 if(segundos%60==0){
                     gravar();
+
                     gravarDados();
+
                     movAnt = movTotal;
                 }
             }
@@ -179,8 +184,10 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
             iniciar = true;
         }else{
             chCronometro.stop();
-			gravar();
+            gravar();
+
             gravarDados();
+
             movAnt = 0;
             btIniciarMonitoramento.setText("Iniciar o Monitoramento");            
             iniciar = false;
@@ -223,6 +230,7 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
                 monitoramento.setLocalizacao(String.valueOf(lat)+";"+String.valueOf(lon));
                 Usuario usuario = new Usuario(1L, "Admin", "admin@admin", "123");
                 monitoramento.setUsuario(usuario);
+                dataFormatada = formataData.format(data);
                 monitoramento.setData(dataFormatada);
                 monitoramento.setMediaMonitora(Double.parseDouble(String.valueOf(movTotal)) - Double.parseDouble(String.valueOf(movAnt)));
 
@@ -245,6 +253,45 @@ public class IniciarMonitoramentoActivity extends AppCompatActivity implements S
         }catch (Exception ex){
             ex.printStackTrace();
             //Toast.makeText(this, "Erro ao editar registro!", Toast.LENGTH_SHORT);
+        }
+    }
+
+    public void persistMonitoramento(Context c, List<Monitoramento> monitoramentos) {
+        bd = DatabaseConnection.getConnection(c);
+        try {
+
+            for (Monitoramento monitoramento : monitoramentos) {
+
+                dataFormatada = formataData.format(data);
+
+                ContentValues monitoramentoBD = new ContentValues();
+                monitoramentoBD.put("_id", monitoramento.getId());
+                monitoramentoBD.put("localizacao", String.valueOf(lat) + ";" + String.valueOf(lon));
+                monitoramentoBD.put("data", dataFormatada);
+                monitoramentoBD.put("mediaMonitora", movTotal - movAnt);
+                bd.insert("monitoramento", null, monitoramentoBD);
+                Log.i("Monitoramento", monitoramentoBD.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void carregarDados(){
+
+        MonitoramentoService monitoramentoService = ServiceGenerator.createService(MonitoramentoService.class);
+
+        Call<List<Monitoramento>> call = monitoramentoService.getAll();
+
+        try{
+            List<Monitoramento> monitoramentos = call.execute().body();
+            if(monitoramentos != null){
+                persistMonitoramento(this, monitoramentos);
+            }else{
+                //Toast.makeText(this, "Nenhum registro encontrado!", Toast.LENGTH_SHORT).show();
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
     }
 }
