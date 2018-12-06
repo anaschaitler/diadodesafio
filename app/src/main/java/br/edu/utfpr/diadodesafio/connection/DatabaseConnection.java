@@ -9,8 +9,6 @@ public class DatabaseConnection {
 
     public static SQLiteDatabase getConnection(Context c) {
 
-        //c.deleteDatabase("BD");
-
         if (BD == null) {
             BD = c.openOrCreateDatabase("BD", Context.MODE_PRIVATE, null);
             BD.execSQL(" CREATE TABLE IF NOT EXISTS grupo( _id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT)");
