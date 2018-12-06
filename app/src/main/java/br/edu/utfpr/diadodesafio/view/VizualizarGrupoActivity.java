@@ -15,6 +15,8 @@ public class VizualizarGrupoActivity extends AppCompatActivity {
     private Cursor grupos;
     private TextView tvId;
     private TextView tvNomeGrupo;
+    private TextView tvMedia;
+    private TextView tvClassificacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +24,12 @@ public class VizualizarGrupoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vizualizar_grupo);
 
         bd = DatabaseConnection.getConnection(this);
-        this.grupos = bd.query("grupo", null, null, null, null, null, null, null);
+        this.grupos = bd.rawQuery("SELECT * FROM grupo", null);
 
         tvId = (TextView) findViewById(R.id.tvId);
         tvNomeGrupo = (TextView) findViewById(R.id.tvNomeGrupo);
+        tvMedia = (TextView) findViewById(R.id.tvMedia);
+        tvClassificacao = (TextView) findViewById(R.id.tvClassificacao);
 
         int qtdeReg = grupos.getCount();
         visualizar(qtdeReg);
@@ -34,6 +38,6 @@ public class VizualizarGrupoActivity extends AppCompatActivity {
     private void visualizar(int position){
         grupos.moveToLast();
         tvId.setText(String.valueOf(grupos.getInt(grupos.getColumnIndex("_id"))));
-        tvNomeGrupo.setText(grupos.getString(grupos.getColumnIndex("nomeGrupo")));
+        tvNomeGrupo.setText(grupos.getString(grupos.getColumnIndex("nome")));
     }
 }

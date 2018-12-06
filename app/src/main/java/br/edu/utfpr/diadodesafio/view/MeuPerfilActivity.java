@@ -30,7 +30,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meu_perfil);
 
         bd = DatabaseConnection.getConnection(this);
-
+        this.usuario = bd.query("grupo", null, null, null, null, null, null, null);
 
 //        this.usuario = bd.query("usuario", null, null, null, null, null, null, null);
 
@@ -59,6 +59,5 @@ public class MeuPerfilActivity extends AppCompatActivity {
 
         }
 
-    }
 }
 

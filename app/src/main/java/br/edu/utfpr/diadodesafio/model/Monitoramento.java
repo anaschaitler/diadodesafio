@@ -17,8 +17,6 @@ public class Monitoramento implements Serializable {
 
     private Double mediaMonitora;
 
-    private MediaMonitoramento mediaMonitoramento;
-
     public Monitoramento() {
     }
 
@@ -74,16 +72,8 @@ public class Monitoramento implements Serializable {
         this.mediaMonitora = mediaMonitora;
     }
 
-    public MediaMonitoramento getMediaMonitoramento() {
-        return mediaMonitoramento;
-    }
-
-    public void setMediaMonitoramento(MediaMonitoramento mediaMonitoramento) {
-        this.mediaMonitoramento = mediaMonitoramento;
-    }
-
     @Override
     public String toString() {
-        return getLocalizacao() + " - " + getUsuario() + " - " + getData() + " - " + getMediaMonitora() + " - " + getMediaMonitoramento();
+        return getLocalizacao() + " - " + getUsuario() + " - " + getData() + " - " + getMediaMonitora();
     }
 }
